@@ -46,6 +46,11 @@ client.on("messageCreate", async (message) => {
     if (command === "!status") {
       require("./commands/status")(message);
     }
+
+    // NEW: Midman command
+    if (command === "!midman") {
+      require("./commands/midman")(message, args);
+    }
   } catch (error) {
     console.error("Error in message handler:", error);
     message.reply(
@@ -55,12 +60,144 @@ client.on("messageCreate", async (message) => {
 });
 
 client.on(Events.InteractionCreate, async (interaction) => {
+  // Handle modal submissions
+  if (interaction.isModalSubmit()) {
+    const customId = interaction.customId;
+    console.log(`Modal submission: ${customId}`);
+
+    try {
+      // Handle midman form submission
+      if (customId.startsWith("midman_form_")) {
+        return require("./utils/handleMidmanModal")(interaction);
+      }
+    } catch (error) {
+      console.error("Error in modal handler:", error);
+      try {
+        await interaction.reply({
+          content:
+            "❌ Terjadi kesalahan saat memproses form. Silakan coba lagi.",
+          ephemeral: true,
+        });
+      } catch (replyError) {
+        console.error("Error sending modal error reply:", replyError);
+      }
+    }
+    return;
+  }
+
   if (!interaction.isButton()) return;
 
   const id = interaction.customId;
   console.log(`Button interaction: ${id}`); // Debug log
 
   try {
+    // NEW: Handle midman modal show
+    if (id.startsWith("show_midman_modal_")) {
+      const {
+        ModalBuilder,
+        TextInputBuilder,
+        TextInputStyle,
+        ActionRowBuilder,
+      } = require("discord.js");
+
+      const modal = new ModalBuilder()
+        .setCustomId(`midman_form_${interaction.user.id}`)
+        .setTitle("📋 Request Midman Service");
+
+      const partnerInput = new TextInputBuilder()
+        .setCustomId("partner_name")
+        .setLabel("Nama Partner (Pembeli/Penjual)")
+        .setStyle(TextInputStyle.Short)
+        .setPlaceholder("Masukkan nama partner transaksi...")
+        .setRequired(true)
+        .setMaxLength(100);
+
+      const amountInput = new TextInputBuilder()
+        .setCustomId("transaction_amount")
+        .setLabel("Nominal Transaksi")
+        .setStyle(TextInputStyle.Short)
+        .setPlaceholder("Contoh: 50000")
+        .setRequired(true)
+        .setMaxLength(20);
+
+      const descriptionInput = new TextInputBuilder()
+        .setCustomId("transaction_description")
+        .setLabel("Deskripsi Transaksi")
+        .setStyle(TextInputStyle.Paragraph)
+        .setPlaceholder("Jelaskan detail transaksi (item, quantity, dll)...")
+        .setRequired(true)
+        .setMaxLength(500);
+
+      const partnerIdInput = new TextInputBuilder()
+        .setCustomId("partner_id")
+        .setLabel("Discord ID/Username Partner")
+        .setStyle(TextInputStyle.Short)
+        .setPlaceholder("@username atau 123456789012345678")
+        .setRequired(true)
+        .setMaxLength(100);
+
+      const notesInput = new TextInputBuilder()
+        .setCustomId("additional_notes")
+        .setLabel("Catatan Tambahan (Opsional)")
+        .setStyle(TextInputStyle.Paragraph)
+        .setPlaceholder("Catatan khusus untuk admin...")
+        .setRequired(false)
+        .setMaxLength(300);
+
+      const firstActionRow = new ActionRowBuilder().addComponents(partnerInput);
+      const secondActionRow = new ActionRowBuilder().addComponents(amountInput);
+      const thirdActionRow = new ActionRowBuilder().addComponents(
+        descriptionInput
+      );
+      const fourthActionRow = new ActionRowBuilder().addComponents(
+        partnerIdInput
+      );
+      const fifthActionRow = new ActionRowBuilder().addComponents(notesInput);
+
+      modal.addComponents(
+        firstActionRow,
+        secondActionRow,
+        thirdActionRow,
+        fourthActionRow,
+        fifthActionRow
+      );
+
+      await interaction.showModal(modal);
+      return;
+    }
+
+    // NEW: Handle midman cancel
+    if (id.startsWith("cancel_midman_")) {
+      await interaction.update({
+        content: "❌ Request midman dibatalkan.",
+        embeds: [],
+        components: [],
+      });
+      return;
+    }
+
+    // NEW: Handle midman approval/rejection
+    if (id.startsWith("approve_midman_")) {
+      return require("./utils/handleMidmanApproval").approveMidman(interaction);
+    }
+
+    if (id.startsWith("reject_midman_")) {
+      return require("./utils/handleMidmanApproval").rejectMidman(interaction);
+    }
+
+    // NEW: Handle midman completion/cancellation
+    if (id.startsWith("complete_midman_")) {
+      return require("./utils/handleMidmanCompletion").completeMidman(
+        interaction
+      );
+    }
+
+    if (id.startsWith("cancel_midman_transaction_")) {
+      return require("./utils/handleMidmanCompletion").cancelMidmanTransaction(
+        interaction
+      );
+    }
+
     // Handle admin selection
     if (id.startsWith("select_admin_")) {
       return require("./utils/handleAdminSelection")(interaction);
@@ -168,7 +305,10 @@ client.on(Events.InteractionCreate, async (interaction) => {
       !id.startsWith("view_") &&
       !id.startsWith("cancel_") &&
       !id.startsWith("select_admin_") &&
-      !id.startsWith("back_admin_")
+      !id.startsWith("back_admin_") &&
+      !id.startsWith("show_midman_") &&
+      !id.startsWith("complete_midman_") &&
+      !id.startsWith("cancel_midman_")
     ) {
       return require("./utils/updateStock")(interaction);
     }
