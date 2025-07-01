@@ -10,10 +10,31 @@ const {
 const fs = require("fs");
 const path = require("path");
 
+// Admin permission check function
+function isAdmin(member) {
+  // Check if user has Administrator permission
+  if (member.permissions.has(PermissionFlagsBits.Administrator)) {
+    return true;
+  }
+
+  // Check if user has specific admin roles (customize role names as needed)
+  const adminRoles = ["Admin", "Moderator", "Staff"]; // Add your admin role names here
+  return member.roles.cache.some((role) => adminRoles.includes(role.name));
+}
+
 module.exports = {
   async approveMidman(interaction) {
     try {
       await interaction.deferReply({ ephemeral: true });
+
+      // CHECK ADMIN PERMISSIONS FIRST
+      const member = interaction.member;
+      if (!isAdmin(member)) {
+        return interaction.editReply({
+          content: "❌ Hanya admin yang dapat menyetujui request midman.",
+          ephemeral: true,
+        });
+      }
 
       const transactionId = interaction.customId.split("_")[2];
 
@@ -152,7 +173,7 @@ module.exports = {
             `**Amount:** Rp ${request.transaction.amount.toLocaleString(
               "id-ID"
             )}\n` +
-            `**Description:** ${request.transaction.description}\n\n` +
+            `**description:** ${request.transaction.description}\n\n` +
             `**Admin:** <@${interaction.user.id}>\n\n` +
             `📋 **Transaction Rules:**\n` +
             `• Follow admin instructions\n` +
@@ -164,6 +185,7 @@ module.exports = {
         .setFooter({ text: "RBLX Syndicate - Midman Service" })
         .setTimestamp();
 
+      // Create buttons - ONLY admin can see these buttons
       const completeButton = new ButtonBuilder()
         .setCustomId(`complete_midman_${transactionId}`)
         .setLabel("✅ Complete Transaction")
@@ -276,6 +298,15 @@ module.exports = {
     try {
       await interaction.deferReply({ ephemeral: true });
 
+      // CHECK ADMIN PERMISSIONS FIRST
+      const member = interaction.member;
+      if (!isAdmin(member)) {
+        return interaction.editReply({
+          content: "❌ Hanya admin yang dapat menolak request midman.",
+          ephemeral: true,
+        });
+      }
+
       const transactionId = interaction.customId.split("_")[2];
 
       // Load midman requests
@@ -383,10 +414,18 @@ module.exports = {
     }
   },
 
-  // NEW: Add the missing completeMidman function
   async completeMidman(interaction) {
     try {
       await interaction.deferReply({ ephemeral: true });
+
+      // CHECK ADMIN PERMISSIONS FIRST - ENHANCED CHECK
+      const member = interaction.member;
+      if (!isAdmin(member)) {
+        return interaction.editReply({
+          content: "❌ Hanya admin yang dapat menyelesaikan transaksi midman.",
+          ephemeral: true,
+        });
+      }
 
       const transactionId = interaction.customId.split("_")[2];
 
@@ -557,10 +596,45 @@ module.exports = {
     }
   },
 
-  // NEW: Add the missing cancelMidmanTransaction function
   async cancelMidmanTransaction(interaction) {
     try {
       await interaction.deferReply({ ephemeral: true });
+
+      // ENHANCED ADMIN PERMISSION CHECK - STRICTER VALIDATION
+      const member = interaction.member;
+      if (!isAdmin(member)) {
+        // Log unauthorized attempt
+        console.warn(
+          `Unauthorized cancel attempt by user: ${interaction.user.id} (${interaction.user.tag})`
+        );
+        return interaction.editReply({
+          content:
+            "❌ Akses ditolak! Hanya admin yang dapat membatalkan transaksi midman.",
+          ephemeral: true,
+        });
+      }
+
+      // Additional security check - verify user is still in guild and has current permissions
+      try {
+        const currentMember = await interaction.guild.members.fetch(
+          interaction.user.id
+        );
+        if (!isAdmin(currentMember)) {
+          console.warn(
+            `Permission changed during execution for user: ${interaction.user.id}`
+          );
+          return interaction.editReply({
+            content: "❌ Permission tidak valid. Silakan coba lagi.",
+            ephemeral: true,
+          });
+        }
+      } catch (error) {
+        console.error("Error verifying member permissions:", error);
+        return interaction.editReply({
+          content: "❌ Gagal memverifikasi permission.",
+          ephemeral: true,
+        });
+      }
 
       const transactionId = interaction.customId.split("_")[3]; // Note: different split index for cancel_midman_transaction_
 
@@ -595,15 +669,18 @@ module.exports = {
 
       if (request.status !== "approved") {
         return interaction.editReply({
-          content: "❌ Transaksi ini belum disetujui atau sudah selesai.",
+          content:
+            "❌ Transaksi ini belum disetujui atau sudah selesai/dibatalkan.",
           ephemeral: true,
         });
       }
 
-      // Update request status
+      // Update request status with detailed admin information
       request.status = "cancelled";
       request.cancelledBy = interaction.user.id;
+      request.cancelledByTag = interaction.user.tag;
       request.cancelledAt = new Date().toISOString();
+      request.cancellationReason = "Cancelled by admin";
 
       // Save updated requests
       try {
@@ -617,16 +694,17 @@ module.exports = {
 
       // Create cancellation embed
       const cancellationEmbed = new EmbedBuilder()
-        .setTitle("❌ Transaction Cancelled")
+        .setTitle("❌ Transaction Cancelled by Admin")
         .setDescription(
           `**Transaction ID:** \`${transactionId}\`\n` +
-            `**Cancelled by:** <@${interaction.user.id}>\n` +
+            `**Cancelled by:** <@${interaction.user.id}> (${interaction.user.tag})\n` +
             `**Cancelled at:** <t:${Math.floor(Date.now() / 1000)}:F>\n\n` +
-            `This transaction has been cancelled by admin.\n` +
-            `This channel will be deleted in 2 minutes.`
+            `⚠️ This transaction has been cancelled by an administrator.\n` +
+            `📞 Please contact admin for more information if needed.\n\n` +
+            `🗑️ This channel will be automatically deleted in 2 minutes.`
         )
         .setColor(0xff0000)
-        .setFooter({ text: "RBLX Syndicate - Midman Service" })
+        .setFooter({ text: "RBLX Syndicate - Midman Service | Admin Action" })
         .setTimestamp();
 
       // Send cancellation message to the transaction channel
@@ -637,18 +715,22 @@ module.exports = {
           );
           if (transactionChannel) {
             await transactionChannel.send({
-              content: `<@${request.requester.id}> ${
+              content: `🚨 **TRANSACTION CANCELLED** 🚨\n<@${
+                request.requester.id
+              }> ${
                 request.partner.id
                   ? `<@${request.partner.id}>`
                   : `@${request.partner.name}`
-              }`,
+              } <@${interaction.user.id}>`,
               embeds: [cancellationEmbed],
             });
 
             // Delete the channel after 2 minutes
             setTimeout(async () => {
               try {
-                await transactionChannel.delete();
+                await transactionChannel.delete(
+                  "Transaction cancelled by admin"
+                );
               } catch (error) {
                 console.error("Error deleting transaction channel:", error);
               }
@@ -659,7 +741,7 @@ module.exports = {
         }
       }
 
-      // Notify users via DM
+      // Notify users via DM with detailed information
       try {
         const requester = await interaction.client.users.fetch(
           request.requester.id
@@ -667,14 +749,16 @@ module.exports = {
         const cancellationNotifyEmbed = new EmbedBuilder()
           .setTitle("❌ Midman Transaction Cancelled")
           .setDescription(
-            `Your midman transaction has been cancelled by admin.\n\n` +
+            `Your midman transaction has been cancelled by an administrator.\n\n` +
               `**Transaction ID:** \`${transactionId}\`\n` +
               `**Amount:** Rp ${request.transaction.amount.toLocaleString(
                 "id-ID"
               )}\n` +
               `**Description:** ${request.transaction.description}\n` +
-              `**Cancelled by:** <@${interaction.user.id}>\n\n` +
-              `Please contact admin for more information or submit a new request.`
+              `**Cancelled by:** <@${interaction.user.id}> (${interaction.user.tag})\n` +
+              `**Cancelled at:** <t:${Math.floor(Date.now() / 1000)}:F>\n\n` +
+              `📞 Please contact admin for more information or submit a new request.\n` +
+              `💬 You can reach out to the admin who cancelled this transaction.`
           )
           .setColor(0xff0000)
           .setFooter({ text: "RBLX Syndicate - Midman Service" })
@@ -694,14 +778,15 @@ module.exports = {
           const partnerCancellationEmbed = new EmbedBuilder()
             .setTitle("❌ Midman Transaction Cancelled")
             .setDescription(
-              `The midman transaction you were part of has been cancelled by admin.\n\n` +
+              `The midman transaction you were part of has been cancelled by an administrator.\n\n` +
                 `**Transaction ID:** \`${transactionId}\`\n` +
                 `**Amount:** Rp ${request.transaction.amount.toLocaleString(
                   "id-ID"
                 )}\n` +
                 `**Description:** ${request.transaction.description}\n` +
-                `**Cancelled by:** <@${interaction.user.id}>\n\n` +
-                `Please contact admin for more information.`
+                `**Cancelled by:** <@${interaction.user.id}> (${interaction.user.tag})\n` +
+                `**Cancelled at:** <t:${Math.floor(Date.now() / 1000)}:F>\n\n` +
+                `📞 Please contact admin for more information.`
             )
             .setColor(0xff0000)
             .setFooter({ text: "RBLX Syndicate - Midman Service" })
@@ -713,16 +798,24 @@ module.exports = {
         }
       }
 
+      // Log the cancellation for audit trail
+      console.log(
+        `MIDMAN CANCELLED - Transaction ID: ${transactionId}, Admin: ${
+          interaction.user.tag
+        } (${interaction.user.id}), Time: ${new Date().toISOString()}`
+      );
+
       await interaction.editReply({
         content:
-          "❌ Transaksi midman telah dibatalkan. Semua pihak telah dinotifikasi.",
+          "❌ Transaksi midman telah berhasil dibatalkan. Semua pihak telah dinotifikasi dan channel akan dihapus dalam 2 menit.",
         ephemeral: true,
       });
     } catch (error) {
       console.error("Error cancelling midman transaction:", error);
       try {
         await interaction.editReply({
-          content: "❌ Terjadi kesalahan saat membatalkan transaksi midman.",
+          content:
+            "❌ Terjadi kesalahan saat membatalkan transaksi midman. Silakan coba lagi.",
           ephemeral: true,
         });
       } catch (replyError) {

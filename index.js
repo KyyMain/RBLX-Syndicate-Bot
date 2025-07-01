@@ -130,9 +130,9 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
       const partnerIdInput = new TextInputBuilder()
         .setCustomId("partner_id")
-        .setLabel("Discord ID/Username Partner")
+        .setLabel("Discord ID")
         .setStyle(TextInputStyle.Short)
-        .setPlaceholder("@username atau 123456789012345678")
+        .setPlaceholder("contoh:123456789012345678")
         .setRequired(true)
         .setMaxLength(100);
 

@@ -51,9 +51,9 @@ module.exports = async (message, args) => {
     // Partner Discord ID/Username input
     const partnerIdInput = new TextInputBuilder()
       .setCustomId("partner_id")
-      .setLabel("Discord ID/Username Partner")
+      .setLabel("Discord ID")
       .setStyle(TextInputStyle.Short)
-      .setPlaceholder("@username atau 123456789012345678")
+      .setPlaceholder("Contoh:123456789012345678")
       .setRequired(true)
       .setMaxLength(100);
 
@@ -108,14 +108,14 @@ module.exports = async (message, args) => {
       .setStyle(ButtonStyle.Primary)
       .setEmoji("🤝");
 
-    const cancelButton = new ButtonBuilder()
-      .setCustomId(`cancel_midman_${message.author.id}`)
-      .setLabel("❌ Cancel")
-      .setStyle(ButtonStyle.Secondary);
+    //const cancelButton = new ButtonBuilder()
+    //  .setCustomId(`cancel_midman_${message.author.id}`)
+    //  .setLabel("❌ Cancel")
+    //  .setStyle(ButtonStyle.Secondary);
 
     const row = new ActionRowBuilder().addComponents(
-      requestButton,
-      cancelButton
+      requestButton
+      //cancelButton
     );
 
     await message.reply({

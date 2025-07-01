@@ -7,12 +7,12 @@
   "fox": {
     "name": "Pet Fox",
     "price": 60000,
-    "stock": 3
+    "stock": 2
   },
   "racoon": {
     "name": "Racoon",
     "price": 70000,
-    "stock": 50
+    "stock": 48
   },
   "df": {
     "name": "DragonFly",

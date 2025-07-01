@@ -420,5 +420,240 @@
       "version": "2.0"
     },
     "approvedAt": "2025-07-01T14:51:00.567Z"
+  },
+  {
+    "id": "MM17513815440642091",
+    "requester": {
+      "id": "554926160925163521",
+      "username": "primerazz",
+      "displayName": "Lɘvi⅃",
+      "tag": "primerazz"
+    },
+    "partner": {
+      "name": "xxkyra",
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "tag": "xxkyra",
+      "inputId": "938450034536632341",
+      "validationStatus": "found"
+    },
+    "transaction": {
+      "amount": 100000,
+      "description": "wok",
+      "notes": "Tidak ada"
+    },
+    "status": "completed",
+    "createdAt": "2025-07-01T14:52:24.064Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389619715734900860",
+    "adminId": "453027780297490442",
+    "metadata": {
+      "submittedVia": "modal_form",
+      "userAgent": "discord_bot",
+      "version": "2.0"
+    },
+    "approvedAt": "2025-07-01T14:52:34.184Z",
+    "completedBy": "554926160925163521",
+    "completedAt": "2025-07-01T14:52:51.613Z"
+  },
+  {
+    "id": "MM17513822615412539",
+    "requester": {
+      "id": "554926160925163521",
+      "username": "primerazz",
+      "displayName": "Lɘvi⅃",
+      "tag": "primerazz"
+    },
+    "partner": {
+      "name": "xxkyra",
+      "id": null,
+      "username": "Unknown",
+      "tag": "Unknown",
+      "inputId": "xxkyra",
+      "validationStatus": "invalid_format"
+    },
+    "transaction": {
+      "amount": 100000,
+      "description": "robux",
+      "notes": "anjay"
+    },
+    "status": "rejected",
+    "createdAt": "2025-07-01T15:04:21.541Z",
+    "guildId": "928470508687724614",
+    "channelId": null,
+    "adminId": "453027780297490442",
+    "metadata": {
+      "submittedVia": "modal_form",
+      "userAgent": "discord_bot",
+      "version": "2.0"
+    },
+    "rejectedAt": "2025-07-01T15:04:38.625Z"
+  },
+  {
+    "id": "MM17513823185331408",
+    "requester": {
+      "id": "554926160925163521",
+      "username": "primerazz",
+      "displayName": "Lɘvi⅃",
+      "tag": "primerazz"
+    },
+    "partner": {
+      "name": "xxkyra",
+      "id": null,
+      "username": "Unknown",
+      "tag": "Unknown",
+      "inputId": "@xKyra",
+      "validationStatus": "invalid_format"
+    },
+    "transaction": {
+      "amount": 100000,
+      "description": "paket gag",
+      "notes": "Tidak ada"
+    },
+    "status": "rejected",
+    "createdAt": "2025-07-01T15:05:18.533Z",
+    "guildId": "928470508687724614",
+    "channelId": null,
+    "adminId": "453027780297490442",
+    "metadata": {
+      "submittedVia": "modal_form",
+      "userAgent": "discord_bot",
+      "version": "2.0"
+    },
+    "rejectedAt": "2025-07-01T15:14:47.924Z"
+  },
+  {
+    "id": "MM17513829591323572",
+    "requester": {
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "displayName": "xKyra",
+      "tag": "xxkyra"
+    },
+    "partner": {
+      "name": "agus",
+      "id": "681140723650789376",
+      "username": "xzeroone01",
+      "tag": "xzeroone01",
+      "inputId": "681140723650789376",
+      "validationStatus": "found"
+    },
+    "transaction": {
+      "amount": 5000000,
+      "description": "beli rakun",
+      "notes": "Tidak ada"
+    },
+    "status": "approved",
+    "createdAt": "2025-07-01T15:15:59.132Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389625637085384785",
+    "adminId": "453027780297490442",
+    "metadata": {
+      "submittedVia": "modal_form",
+      "userAgent": "discord_bot",
+      "version": "2.0"
+    },
+    "approvedAt": "2025-07-01T15:16:05.945Z"
+  },
+  {
+    "id": "MM17513831146228548",
+    "requester": {
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "displayName": "xKyra",
+      "tag": "xxkyra"
+    },
+    "partner": {
+      "name": "agsu",
+      "id": "681140723650789376",
+      "username": "xzeroone01",
+      "tag": "xzeroone01",
+      "inputId": "681140723650789376",
+      "validationStatus": "found"
+    },
+    "transaction": {
+      "amount": 50000000,
+      "description": "beli rakun",
+      "notes": "Tidak ada"
+    },
+    "status": "approved",
+    "createdAt": "2025-07-01T15:18:34.623Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389626283465507037",
+    "adminId": "453027780297490442",
+    "metadata": {
+      "submittedVia": "modal_form",
+      "userAgent": "discord_bot",
+      "version": "2.0"
+    },
+    "approvedAt": "2025-07-01T15:18:40.268Z"
+  },
+  {
+    "id": "MM17513834564435807",
+    "requester": {
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "displayName": "xKyra",
+      "tag": "xxkyra"
+    },
+    "partner": {
+      "name": "agus",
+      "id": "681140723650789376",
+      "username": "xzeroone01",
+      "tag": "xzeroone01",
+      "inputId": "681140723650789376",
+      "validationStatus": "found"
+    },
+    "transaction": {
+      "amount": 10000000,
+      "description": "beli bg",
+      "notes": "Tidak ada"
+    },
+    "status": "approved",
+    "createdAt": "2025-07-01T15:24:16.443Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389627737131716658",
+    "adminId": "453027780297490442",
+    "metadata": {
+      "submittedVia": "modal_form",
+      "userAgent": "discord_bot",
+      "version": "2.0"
+    },
+    "approvedAt": "2025-07-01T15:24:26.694Z"
+  },
+  {
+    "id": "MM17513857161695840",
+    "requester": {
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "displayName": "xKyra",
+      "tag": "xxkyra"
+    },
+    "partner": {
+      "name": "bsjsnxb",
+      "id": "681140723650789376",
+      "username": "xzeroone01",
+      "tag": "xzeroone01",
+      "inputId": "681140723650789376",
+      "validationStatus": "found"
+    },
+    "transaction": {
+      "amount": 49948888,
+      "description": "hdhdhs",
+      "notes": "Tidak ada"
+    },
+    "status": "completed",
+    "createdAt": "2025-07-01T16:01:56.169Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389637288312701161",
+    "adminId": "453027780297490442",
+    "metadata": {
+      "submittedVia": "modal_form",
+      "userAgent": "discord_bot",
+      "version": "2.0"
+    },
+    "approvedAt": "2025-07-01T16:02:23.891Z",
+    "completedBy": "453027780297490442",
+    "completedAt": "2025-07-01T16:02:31.689Z"
   }
 ]

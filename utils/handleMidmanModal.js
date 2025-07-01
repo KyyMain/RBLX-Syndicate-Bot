@@ -444,7 +444,7 @@ function getPartnerValidationText(status, inputId, partnerUser) {
     case "not_found":
       return `❌ **Partner Not Found**\nInput: \`${inputId}\`\nUser tidak ditemukan di server atau cache`;
     case "invalid_format":
-      return `⚠️ **Invalid ID Format**\nInput: \`${inputId}\`\nFormat ID tidak valid (harus berupa Discord ID atau mention)`;
+      return `⚠️ **Invalid ID Format**\nInput: \`${inputId}\`\nFormat ID tidak valid (harus berupa Discord ID)`;
     case "error":
       return `🔴 **Fetch Error**\nInput: \`${inputId}\`\nTerjadi error saat mencari user`;
     default:
