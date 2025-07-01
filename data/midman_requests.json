@@ -1,0 +1,459 @@
+[
+  {
+    "id": "MM1751377236633951",
+    "requester": {
+      "id": "453027780297490442",
+      "username": "kyy8775",
+      "displayName": "Kyy"
+    },
+    "partner": {
+      "name": "xzone",
+      "id": null,
+      "username": "Unknown",
+      "inputId": "@XzeroOnee"
+    },
+    "transaction": {
+      "amount": 100000,
+      "description": "racoon",
+      "notes": "Tidak ada"
+    },
+    "status": "approved",
+    "createdAt": "2025-07-01T13:40:36.633Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389605927296176209",
+    "adminId": "681140723650789376",
+    "approvedAt": "2025-07-01T13:57:46.995Z"
+  },
+  {
+    "id": "MM175137842980941",
+    "requester": {
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "displayName": "xKyra"
+    },
+    "partner": {
+      "name": "Kyy",
+      "id": null,
+      "username": "Unknown",
+      "inputId": "@Kyy8775"
+    },
+    "transaction": {
+      "amount": 100000,
+      "description": "beli raccon",
+      "notes": "Tidak ada"
+    },
+    "status": "approved",
+    "createdAt": "2025-07-01T14:00:29.809Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389606637349900358",
+    "adminId": "453027780297490442",
+    "approvedAt": "2025-07-01T14:00:36.679Z"
+  },
+  {
+    "id": "MM1751378550019354",
+    "requester": {
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "displayName": "xKyra"
+    },
+    "partner": {
+      "name": "Kyy8775",
+      "id": null,
+      "username": "Unknown",
+      "inputId": "@Kyy8775"
+    },
+    "transaction": {
+      "amount": 500000,
+      "description": "ksksks",
+      "notes": "beli"
+    },
+    "status": "approved",
+    "createdAt": "2025-07-01T14:02:30.019Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389607668963999825",
+    "adminId": "453027780297490442",
+    "approvedAt": "2025-07-01T14:04:42.704Z"
+  },
+  {
+    "id": "MM175137879286460",
+    "requester": {
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "displayName": "xKyra"
+    },
+    "partner": {
+      "name": "Kyy8775",
+      "id": null,
+      "username": "Unknown",
+      "inputId": "@Kyy"
+    },
+    "transaction": {
+      "amount": 100000,
+      "description": "beli raccoon",
+      "notes": "hahaha"
+    },
+    "status": "rejected",
+    "createdAt": "2025-07-01T14:06:32.864Z",
+    "guildId": "928470508687724614",
+    "channelId": null,
+    "adminId": "453027780297490442",
+    "rejectedAt": "2025-07-01T14:10:41.911Z"
+  },
+  {
+    "id": "MM1751379151890588",
+    "requester": {
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "displayName": "xKyra"
+    },
+    "partner": {
+      "name": "Kyy",
+      "id": null,
+      "username": "Unknown",
+      "inputId": "@Kyy"
+    },
+    "transaction": {
+      "amount": 100000,
+      "description": "beli rakun",
+      "notes": "Tidak ada"
+    },
+    "status": "completed",
+    "createdAt": "2025-07-01T14:12:31.890Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389609684993835060",
+    "adminId": "453027780297490442",
+    "approvedAt": "2025-07-01T14:12:43.467Z",
+    "completedBy": "453027780297490442",
+    "completedAt": "2025-07-01T14:12:59.299Z"
+  },
+  {
+    "id": "MM175137919925451",
+    "requester": {
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "displayName": "xKyra"
+    },
+    "partner": {
+      "name": "kyy",
+      "id": null,
+      "username": "Unknown",
+      "inputId": "@Kyy"
+    },
+    "transaction": {
+      "amount": 500000,
+      "description": "ajsns",
+      "notes": "sjshsbx"
+    },
+    "status": "rejected",
+    "createdAt": "2025-07-01T14:13:19.254Z",
+    "guildId": "928470508687724614",
+    "channelId": null,
+    "adminId": "453027780297490442",
+    "rejectedAt": "2025-07-01T14:13:25.859Z"
+  },
+  {
+    "id": "MM1751379258857521",
+    "requester": {
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "displayName": "xKyra"
+    },
+    "partner": {
+      "name": "kyy",
+      "id": null,
+      "username": "Unknown",
+      "inputId": "@Kyy"
+    },
+    "transaction": {
+      "amount": 500000,
+      "description": "brli rakun",
+      "notes": "beli bang"
+    },
+    "status": "rejected",
+    "createdAt": "2025-07-01T14:14:18.857Z",
+    "guildId": "928470508687724614",
+    "channelId": null,
+    "adminId": "453027780297490442",
+    "rejectedAt": "2025-07-01T14:14:54.435Z"
+  },
+  {
+    "id": "MM1751379485540938",
+    "requester": {
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "displayName": "xKyra"
+    },
+    "partner": {
+      "name": "primerazz",
+      "id": null,
+      "username": "Unknown",
+      "inputId": "@primerazz"
+    },
+    "transaction": {
+      "amount": 500000,
+      "description": "beli rakun",
+      "notes": "beli bang"
+    },
+    "status": "approved",
+    "createdAt": "2025-07-01T14:18:05.540Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389611145563865158",
+    "adminId": "453027780297490442",
+    "approvedAt": "2025-07-01T14:18:30.380Z"
+  },
+  {
+    "id": "MM1751379610843703",
+    "requester": {
+      "id": "554926160925163521",
+      "username": "primerazz",
+      "displayName": "Lɘvi⅃"
+    },
+    "partner": {
+      "name": "kyy",
+      "id": null,
+      "username": "Unknown",
+      "inputId": "@xKyra"
+    },
+    "transaction": {
+      "amount": 100000,
+      "description": "niger",
+      "notes": "bangke luwh"
+    },
+    "status": "completed",
+    "createdAt": "2025-07-01T14:20:10.843Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389611622863212660",
+    "adminId": "453027780297490442",
+    "approvedAt": "2025-07-01T14:20:25.435Z",
+    "completedBy": "453027780297490442",
+    "completedAt": "2025-07-01T14:21:16.542Z"
+  },
+  {
+    "id": "MM1751379731603701",
+    "requester": {
+      "id": "554926160925163521",
+      "username": "primerazz",
+      "displayName": "Lɘvi⅃"
+    },
+    "partner": {
+      "name": "kyy",
+      "id": null,
+      "username": "Unknown",
+      "inputId": "xKyra"
+    },
+    "transaction": {
+      "amount": 100000,
+      "description": "robux 1k",
+      "notes": "sial luwh"
+    },
+    "status": "rejected",
+    "createdAt": "2025-07-01T14:22:11.603Z",
+    "guildId": "928470508687724614",
+    "channelId": null,
+    "adminId": "453027780297490442",
+    "rejectedAt": "2025-07-01T14:23:29.415Z"
+  },
+  {
+    "id": "MM1751379900732785",
+    "requester": {
+      "id": "554926160925163521",
+      "username": "primerazz",
+      "displayName": "Lɘvi⅃"
+    },
+    "partner": {
+      "name": "kyy",
+      "id": null,
+      "username": "Unknown",
+      "inputId": "xxkyra"
+    },
+    "transaction": {
+      "amount": 17000000,
+      "description": "1m robux",
+      "notes": "Tidak ada"
+    },
+    "status": "completed",
+    "createdAt": "2025-07-01T14:25:00.732Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389612835109343304",
+    "adminId": "453027780297490442",
+    "approvedAt": "2025-07-01T14:25:14.483Z",
+    "completedBy": "554926160925163521",
+    "completedAt": "2025-07-01T14:25:48.190Z"
+  },
+  {
+    "id": "MM1751379966438477",
+    "requester": {
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "displayName": "xKyra"
+    },
+    "partner": {
+      "name": "primerazz",
+      "id": null,
+      "username": "Unknown",
+      "inputId": "primerazz"
+    },
+    "transaction": {
+      "amount": 500000,
+      "description": "shsbs s",
+      "notes": "Tidak ada"
+    },
+    "status": "approved",
+    "createdAt": "2025-07-01T14:26:06.438Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389613078605332562",
+    "adminId": "453027780297490442",
+    "approvedAt": "2025-07-01T14:26:12.515Z"
+  },
+  {
+    "id": "MM1751380077340864",
+    "requester": {
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "displayName": "xKyra"
+    },
+    "partner": {
+      "name": "@primerazz",
+      "id": null,
+      "username": "Unknown",
+      "inputId": "@primerazz"
+    },
+    "transaction": {
+      "amount": 500000,
+      "description": "10000",
+      "notes": "Tidak ada"
+    },
+    "status": "approved",
+    "createdAt": "2025-07-01T14:27:57.340Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389613555304759398",
+    "adminId": "453027780297490442",
+    "approvedAt": "2025-07-01T14:28:06.243Z"
+  },
+  {
+    "id": "MM1751380140549986",
+    "requester": {
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "displayName": "xKyra"
+    },
+    "partner": {
+      "name": "@primerazz",
+      "id": null,
+      "username": "Unknown",
+      "inputId": "@primerazz"
+    },
+    "transaction": {
+      "amount": 500000,
+      "description": "dhxbdjxnxn",
+      "notes": "sjansb"
+    },
+    "status": "rejected",
+    "createdAt": "2025-07-01T14:29:00.549Z",
+    "guildId": "928470508687724614",
+    "channelId": null,
+    "adminId": "453027780297490442",
+    "rejectedAt": "2025-07-01T14:49:09.476Z"
+  },
+  {
+    "id": "MM17513813939693969",
+    "requester": {
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "displayName": "xKyra",
+      "tag": "xxkyra"
+    },
+    "partner": {
+      "name": "@Kyy",
+      "id": null,
+      "username": "Unknown",
+      "tag": "Unknown",
+      "inputId": "@kyy8775",
+      "validationStatus": "invalid_format"
+    },
+    "transaction": {
+      "amount": 5000000,
+      "description": "beli abang",
+      "notes": "nsjsnsbsj"
+    },
+    "status": "approved",
+    "createdAt": "2025-07-01T14:49:53.969Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389619085221953647",
+    "adminId": "453027780297490442",
+    "metadata": {
+      "submittedVia": "modal_form",
+      "userAgent": "discord_bot",
+      "version": "2.0"
+    },
+    "approvedAt": "2025-07-01T14:50:04.171Z"
+  },
+  {
+    "id": "MM17513814540055041",
+    "requester": {
+      "id": "554926160925163521",
+      "username": "primerazz",
+      "displayName": "Lɘvi⅃",
+      "tag": "primerazz"
+    },
+    "partner": {
+      "name": "xxkyra",
+      "id": null,
+      "username": "Unknown",
+      "tag": "Unknown",
+      "inputId": "@xxkyra",
+      "validationStatus": "invalid_format"
+    },
+    "transaction": {
+      "amount": 100000,
+      "description": "wiwokdetok",
+      "notes": "Tidak ada"
+    },
+    "status": "approved",
+    "createdAt": "2025-07-01T14:50:54.005Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389619321726046330",
+    "adminId": "453027780297490442",
+    "metadata": {
+      "submittedVia": "modal_form",
+      "userAgent": "discord_bot",
+      "version": "2.0"
+    },
+    "approvedAt": "2025-07-01T14:51:00.567Z"
+  },
+  {
+    "id": "MM17513815440642091",
+    "requester": {
+      "id": "554926160925163521",
+      "username": "primerazz",
+      "displayName": "Lɘvi⅃",
+      "tag": "primerazz"
+    },
+    "partner": {
+      "name": "xxkyra",
+      "id": "938450034536632341",
+      "username": "xxkyra",
+      "tag": "xxkyra",
+      "inputId": "938450034536632341",
+      "validationStatus": "found"
+    },
+    "transaction": {
+      "amount": 100000,
+      "description": "wok",
+      "notes": "Tidak ada"
+    },
+    "status": "completed",
+    "createdAt": "2025-07-01T14:52:24.064Z",
+    "guildId": "928470508687724614",
+    "channelId": "1389619715734900860",
+    "adminId": "453027780297490442",
+    "metadata": {
+      "submittedVia": "modal_form",
+      "userAgent": "discord_bot",
+      "version": "2.0"
+    },
+    "approvedAt": "2025-07-01T14:52:34.184Z",
+    "completedBy": "554926160925163521",
+    "completedAt": "2025-07-01T14:52:51.613Z"
+  }
+]

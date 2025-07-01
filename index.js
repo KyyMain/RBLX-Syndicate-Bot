@@ -47,7 +47,7 @@ client.on("messageCreate", async (message) => {
       require("./commands/status")(message);
     }
 
-    // NEW: Midman command
+    // NEW: Midman command - FIXED
     if (command === "!midman") {
       require("./commands/midman")(message, args);
     }
@@ -76,7 +76,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
         await interaction.reply({
           content:
             "❌ Terjadi kesalahan saat memproses form. Silakan coba lagi.",
-          ephemeral: true,
+          flags: 64,
         });
       } catch (replyError) {
         console.error("Error sending modal error reply:", replyError);

@@ -323,5 +323,23 @@
     "timestamp": 1751323815114,
     "status": "pending",
     "createdAt": "2025-06-30T22:50:15.114Z"
+  },
+  {
+    "id": "txn_1751378911577_453027780297490442",
+    "user": "453027780297490442",
+    "username": "kyy8775",
+    "item": "Pet Fox",
+    "itemKey": "fox",
+    "amount": 1,
+    "totalPrice": 60000,
+    "method": "QRIS",
+    "adminId": "453027780297490442",
+    "timestamp": 1751378911577,
+    "status": "approved",
+    "createdAt": "2025-07-01T14:08:31.577Z",
+    "proofUploadedAt": "2025-07-01T14:08:49.146Z",
+    "proofUrl": "https://cdn.discordapp.com/attachments/1389228943684407368/1389608699483521315/Screenshot_650.png?ex=68653d73&is=6863ebf3&hm=df4a43146d96eae05055238c2226d3dec58d5b3e5d5fb6f8e6e6c141845cd89f&",
+    "approvedBy": "453027780297490442",
+    "approvedAt": "2025-07-01T14:08:58.536Z"
   }
 ]

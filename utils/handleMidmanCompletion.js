@@ -1,4 +1,4 @@
-// utils/handleMidmanApproval.js
+// utils/handleMidmanCompletion.js
 const {
   EmbedBuilder,
   ButtonBuilder,
@@ -375,6 +375,354 @@ module.exports = {
       try {
         await interaction.editReply({
           content: "❌ Terjadi kesalahan saat reject midman request.",
+          ephemeral: true,
+        });
+      } catch (replyError) {
+        console.error("Error sending error reply:", replyError);
+      }
+    }
+  },
+
+  // NEW: Add the missing completeMidman function
+  async completeMidman(interaction) {
+    try {
+      await interaction.deferReply({ ephemeral: true });
+
+      const transactionId = interaction.customId.split("_")[2];
+
+      // Load midman requests
+      const midmanPath = path.join(__dirname, "../data/midman_requests.json");
+      let requests = [];
+
+      try {
+        if (fs.existsSync(midmanPath)) {
+          const data = await fs.promises.readFile(midmanPath, "utf8");
+          requests = JSON.parse(data);
+        }
+      } catch (error) {
+        console.error("Error reading midman requests:", error);
+        return interaction.editReply({
+          content: "❌ Gagal memuat data request midman.",
+          ephemeral: true,
+        });
+      }
+
+      const requestIndex = requests.findIndex(
+        (req) => req.id === transactionId
+      );
+      if (requestIndex === -1) {
+        return interaction.editReply({
+          content: "❌ Request midman tidak ditemukan.",
+          ephemeral: true,
+        });
+      }
+
+      const request = requests[requestIndex];
+
+      if (request.status !== "approved") {
+        return interaction.editReply({
+          content: "❌ Transaksi ini belum disetujui atau sudah selesai.",
+          ephemeral: true,
+        });
+      }
+
+      // Update request status
+      request.status = "completed";
+      request.completedBy = interaction.user.id;
+      request.completedAt = new Date().toISOString();
+
+      // Save updated requests
+      try {
+        await fs.promises.writeFile(
+          midmanPath,
+          JSON.stringify(requests, null, 2)
+        );
+      } catch (error) {
+        console.error("Error saving updated midman request:", error);
+      }
+
+      // Create completion embed
+      const completionEmbed = new EmbedBuilder()
+        .setTitle("✅ Transaction Completed!")
+        .setDescription(
+          `**Transaction ID:** \`${transactionId}\`\n` +
+            `**Completed by:** <@${interaction.user.id}>\n` +
+            `**Completed at:** <t:${Math.floor(Date.now() / 1000)}:F>\n\n` +
+            `Thank you for using our midman service! 🎉\n` +
+            `This channel will be archived in 5 minutes.`
+        )
+        .setColor(0x00ff00)
+        .setFooter({ text: "RBLX Syndicate - Midman Service" })
+        .setTimestamp();
+
+      // Send completion message to the transaction channel
+      if (request.channelId) {
+        try {
+          const transactionChannel = interaction.guild.channels.cache.get(
+            request.channelId
+          );
+          if (transactionChannel) {
+            await transactionChannel.send({
+              content: `<@${request.requester.id}> ${
+                request.partner.id
+                  ? `<@${request.partner.id}>`
+                  : `@${request.partner.name}`
+              }`,
+              embeds: [completionEmbed],
+            });
+
+            // Archive the channel after 5 minutes
+            setTimeout(async () => {
+              try {
+                await transactionChannel.delete();
+              } catch (error) {
+                console.error("Error deleting transaction channel:", error);
+              }
+            }, 5 * 60 * 1000); // 5 minutes
+          }
+        } catch (error) {
+          console.error("Error sending completion message:", error);
+        }
+      }
+
+      // Notify users via DM
+      try {
+        const requester = await interaction.client.users.fetch(
+          request.requester.id
+        );
+        const completionNotifyEmbed = new EmbedBuilder()
+          .setTitle("✅ Midman Transaction Completed!")
+          .setDescription(
+            `Your midman transaction has been completed successfully!\n\n` +
+              `**Transaction ID:** \`${transactionId}\`\n` +
+              `**Amount:** Rp ${request.transaction.amount.toLocaleString(
+                "id-ID"
+              )}\n` +
+              `**Description:** ${request.transaction.description}\n` +
+              `**Completed by:** <@${interaction.user.id}>\n\n` +
+              `Thank you for using RBLX Syndicate midman service! 🎉`
+          )
+          .setColor(0x00ff00)
+          .setFooter({ text: "RBLX Syndicate - Midman Service" })
+          .setTimestamp();
+
+        await requester.send({ embeds: [completionNotifyEmbed] });
+      } catch (error) {
+        console.log("Could not send DM to requester:", error.message);
+      }
+
+      // Notify partner if available
+      if (request.partner.id) {
+        try {
+          const partner = await interaction.client.users.fetch(
+            request.partner.id
+          );
+          const partnerCompletionEmbed = new EmbedBuilder()
+            .setTitle("✅ Midman Transaction Completed!")
+            .setDescription(
+              `The midman transaction you were part of has been completed!\n\n` +
+                `**Transaction ID:** \`${transactionId}\`\n` +
+                `**Amount:** Rp ${request.transaction.amount.toLocaleString(
+                  "id-ID"
+                )}\n` +
+                `**Description:** ${request.transaction.description}\n` +
+                `**Completed by:** <@${interaction.user.id}>\n\n` +
+                `Thank you for using RBLX Syndicate midman service! 🎉`
+            )
+            .setColor(0x00ff00)
+            .setFooter({ text: "RBLX Syndicate - Midman Service" })
+            .setTimestamp();
+
+          await partner.send({ embeds: [partnerCompletionEmbed] });
+        } catch (error) {
+          console.log("Could not send DM to partner:", error.message);
+        }
+      }
+
+      await interaction.editReply({
+        content:
+          "✅ Transaksi midman berhasil diselesaikan! Semua pihak telah dinotifikasi.",
+        ephemeral: true,
+      });
+    } catch (error) {
+      console.error("Error completing midman transaction:", error);
+      try {
+        await interaction.editReply({
+          content: "❌ Terjadi kesalahan saat menyelesaikan transaksi midman.",
+          ephemeral: true,
+        });
+      } catch (replyError) {
+        console.error("Error sending error reply:", replyError);
+      }
+    }
+  },
+
+  // NEW: Add the missing cancelMidmanTransaction function
+  async cancelMidmanTransaction(interaction) {
+    try {
+      await interaction.deferReply({ ephemeral: true });
+
+      const transactionId = interaction.customId.split("_")[3]; // Note: different split index for cancel_midman_transaction_
+
+      // Load midman requests
+      const midmanPath = path.join(__dirname, "../data/midman_requests.json");
+      let requests = [];
+
+      try {
+        if (fs.existsSync(midmanPath)) {
+          const data = await fs.promises.readFile(midmanPath, "utf8");
+          requests = JSON.parse(data);
+        }
+      } catch (error) {
+        console.error("Error reading midman requests:", error);
+        return interaction.editReply({
+          content: "❌ Gagal memuat data request midman.",
+          ephemeral: true,
+        });
+      }
+
+      const requestIndex = requests.findIndex(
+        (req) => req.id === transactionId
+      );
+      if (requestIndex === -1) {
+        return interaction.editReply({
+          content: "❌ Request midman tidak ditemukan.",
+          ephemeral: true,
+        });
+      }
+
+      const request = requests[requestIndex];
+
+      if (request.status !== "approved") {
+        return interaction.editReply({
+          content: "❌ Transaksi ini belum disetujui atau sudah selesai.",
+          ephemeral: true,
+        });
+      }
+
+      // Update request status
+      request.status = "cancelled";
+      request.cancelledBy = interaction.user.id;
+      request.cancelledAt = new Date().toISOString();
+
+      // Save updated requests
+      try {
+        await fs.promises.writeFile(
+          midmanPath,
+          JSON.stringify(requests, null, 2)
+        );
+      } catch (error) {
+        console.error("Error saving updated midman request:", error);
+      }
+
+      // Create cancellation embed
+      const cancellationEmbed = new EmbedBuilder()
+        .setTitle("❌ Transaction Cancelled")
+        .setDescription(
+          `**Transaction ID:** \`${transactionId}\`\n` +
+            `**Cancelled by:** <@${interaction.user.id}>\n` +
+            `**Cancelled at:** <t:${Math.floor(Date.now() / 1000)}:F>\n\n` +
+            `This transaction has been cancelled by admin.\n` +
+            `This channel will be deleted in 2 minutes.`
+        )
+        .setColor(0xff0000)
+        .setFooter({ text: "RBLX Syndicate - Midman Service" })
+        .setTimestamp();
+
+      // Send cancellation message to the transaction channel
+      if (request.channelId) {
+        try {
+          const transactionChannel = interaction.guild.channels.cache.get(
+            request.channelId
+          );
+          if (transactionChannel) {
+            await transactionChannel.send({
+              content: `<@${request.requester.id}> ${
+                request.partner.id
+                  ? `<@${request.partner.id}>`
+                  : `@${request.partner.name}`
+              }`,
+              embeds: [cancellationEmbed],
+            });
+
+            // Delete the channel after 2 minutes
+            setTimeout(async () => {
+              try {
+                await transactionChannel.delete();
+              } catch (error) {
+                console.error("Error deleting transaction channel:", error);
+              }
+            }, 2 * 60 * 1000); // 2 minutes
+          }
+        } catch (error) {
+          console.error("Error sending cancellation message:", error);
+        }
+      }
+
+      // Notify users via DM
+      try {
+        const requester = await interaction.client.users.fetch(
+          request.requester.id
+        );
+        const cancellationNotifyEmbed = new EmbedBuilder()
+          .setTitle("❌ Midman Transaction Cancelled")
+          .setDescription(
+            `Your midman transaction has been cancelled by admin.\n\n` +
+              `**Transaction ID:** \`${transactionId}\`\n` +
+              `**Amount:** Rp ${request.transaction.amount.toLocaleString(
+                "id-ID"
+              )}\n` +
+              `**Description:** ${request.transaction.description}\n` +
+              `**Cancelled by:** <@${interaction.user.id}>\n\n` +
+              `Please contact admin for more information or submit a new request.`
+          )
+          .setColor(0xff0000)
+          .setFooter({ text: "RBLX Syndicate - Midman Service" })
+          .setTimestamp();
+
+        await requester.send({ embeds: [cancellationNotifyEmbed] });
+      } catch (error) {
+        console.log("Could not send DM to requester:", error.message);
+      }
+
+      // Notify partner if available
+      if (request.partner.id) {
+        try {
+          const partner = await interaction.client.users.fetch(
+            request.partner.id
+          );
+          const partnerCancellationEmbed = new EmbedBuilder()
+            .setTitle("❌ Midman Transaction Cancelled")
+            .setDescription(
+              `The midman transaction you were part of has been cancelled by admin.\n\n` +
+                `**Transaction ID:** \`${transactionId}\`\n` +
+                `**Amount:** Rp ${request.transaction.amount.toLocaleString(
+                  "id-ID"
+                )}\n` +
+                `**Description:** ${request.transaction.description}\n` +
+                `**Cancelled by:** <@${interaction.user.id}>\n\n` +
+                `Please contact admin for more information.`
+            )
+            .setColor(0xff0000)
+            .setFooter({ text: "RBLX Syndicate - Midman Service" })
+            .setTimestamp();
+
+          await partner.send({ embeds: [partnerCancellationEmbed] });
+        } catch (error) {
+          console.log("Could not send DM to partner:", error.message);
+        }
+      }
+
+      await interaction.editReply({
+        content:
+          "❌ Transaksi midman telah dibatalkan. Semua pihak telah dinotifikasi.",
+        ephemeral: true,
+      });
+    } catch (error) {
+      console.error("Error cancelling midman transaction:", error);
+      try {
+        await interaction.editReply({
+          content: "❌ Terjadi kesalahan saat membatalkan transaksi midman.",
           ephemeral: true,
         });
       } catch (replyError) {
