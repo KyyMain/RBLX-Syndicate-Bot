@@ -1,0 +1,14 @@
+{
+  "admins": {
+    "453027780297490442": {
+      "name": "kyy8775",
+      "isActive": true,
+      "payments": [
+        "QRIS",
+        "DANA",
+        "OVO",
+        "GOJEK"
+      ]
+    }
+  }
+}

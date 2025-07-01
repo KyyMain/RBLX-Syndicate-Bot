@@ -1,0 +1,22 @@
+{
+  "ostrich": {
+    "name": "Ostrich",
+    "price": 50000,
+    "stock": 10
+  },
+  "fox": {
+    "name": "Pet Fox",
+    "price": 60000,
+    "stock": 4
+  },
+  "racoon": {
+    "name": "Racoon",
+    "price": 70000,
+    "stock": 50
+  },
+  "df": {
+    "name": "DragonFly",
+    "price": 70000,
+    "stock": 50
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "kyy-store-bot",
+  "version": "1.0.0",
+  "description": "Bot jual beli untuk RBLX Syndicate",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.21.0",
+    "fs": "^0.0.1-security"
+  }
+}
