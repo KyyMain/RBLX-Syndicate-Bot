@@ -1,6 +1,6 @@
 ﻿# RBLX Syndicate Bot
 
-[![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?style=flat-square&logo=node.js&logoColor=white)](#) [![discord.js](https://img.shields.io/badge/discord.js-v14-5865F2?style=flat-square&logo=discord&logoColor=white)](#) [![Status](https://img.shields.io/badge/status-in%20development-ffb347?style=flat-square)](#)
+[![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?style=flat-square&logo=node.js&logoColor=white)](#) [![discord.js](https://img.shields.io/badge/discord.js-v14-5865F2?style=flat-square&logo=discord&logoColor=white)](#) [![Status](https://img.shields.io/badge/status-in%20development-ffb347?style=flat-square)](#) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 
 > Bot Discord modern untuk mengelola pesanan, pembayaran, dan layanan midman komunitas RBLX Syndicate.
 
@@ -170,4 +170,16 @@ Ide roadmap:
 - Buat test suite ringan untuk validasi parser dan state transaksi.
 
 ## Lisensi
-Lisensi belum ditentukan. Hubungi pemilik repositori sebelum mendistribusikan ulang kode ini.
+```
+>>> LICENSE DASHBOARD >>>
+| Item                | Status |
+|---------------------|--------|
+| Nama Lisensi        | MIT    |
+| Penggunaan Komersial| YES    |
+| Modifikasi          | YES    |
+| Distribusi Ulang    | YES    |
+| Garansi             | NONE   |
+>>> STAY FAIR, SHARE RESPONSIBLY >>>
+```
+
+Selengkapnya terdapat pada berkas `LICENSE`. Dengan memilih MIT License, proyek ini tetap terbuka untuk kolaborasi sambil menjaga atribusi bagi kontributor.
